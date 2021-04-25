@@ -1,20 +1,28 @@
 package br.com.carlover.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import br.com.carlover.connection.ConnectionFactory;
 import br.com.carlover.model.Car;
 
 public class CarDao {
 
     public void save(Car car) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("carlover-persistence-unit");
-        EntityManager manager = factory.createEntityManager();
+        EntityManager manager = ConnectionFactory.getConnection();
+
         manager.getTransaction().begin();
         manager.persist(car);
         manager.getTransaction().commit();
         manager.close();
+    }
+
+    public List<Car> getAll() {
+        EntityManager manager = ConnectionFactory.getConnection();
+        String jpql = "SELECT c from Car c";
+
+        return manager.createQuery(jpql, Car.class).getResultList();
     }
 
 }

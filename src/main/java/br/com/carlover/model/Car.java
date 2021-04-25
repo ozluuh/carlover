@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Car {
 
     @Id
-    @Column(name = "id_control")
+    @Column(name = "id_car")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

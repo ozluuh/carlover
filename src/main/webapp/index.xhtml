@@ -1,22 +1,67 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+>
+  <ui:composition template="/_template.xhtml">
+    <ui:define name="content">
+      <h:form id="form">
+        <p:card styleClass="form-card">
+          <div class="car">
+            <p:dataView
+              var="car"
+              value="#{carBean.cars}"
+              rows="5"
+              paginator="true"
+              rowsPerPageTemplate="5,10"
+              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+              gridIcon="pi pi-th-large"
+              listIcon="pi pi-bars"
+            >
+              <p:dataViewGridItem>
+                <div class="car-grid-item card border-1">
+                  <div class="car-grid-item-content">
+                    <p:graphicImage name="img/sample.jpg" />
+                    <div class="car-name">#{car.model}</div>
+                    <div class="car-description">#{car.brand}</div>
+                    <div class="car-description">#{car.description}</div>
+                  </div>
+                  <div class="car-grid-item-bottom">
+                    <p:rating value="0" />
+                    <div class="car-grid-item-action">
+                      <h:outputText value="#{car.price}" styleClass="car-price">
+                        <f:convertNumber currencySymbol="R$" type="currency" />
+                      </h:outputText>
+                      <p:commandButton type="button" value="Detail" icon="pi pi-search" />
+                    </div>
+                  </div>
+                </div>
+              </p:dataViewGridItem>
 
-<ui:composition template="/_template.xhtml">
-	<ui:define name="content">
-		<h:form>
-			<p:card styleClass="form-card">
-				<h:panelGrid columns="2">
-					<h:outputLabel value="Server OK?" />
-					<h:commandButton value="Test" action="#{indexBean.execute}" />
-				</h:panelGrid>
-			</p:card>
-		</h:form>
-	</ui:define>
-</ui:composition>
+              <p:dataViewListItem>
+                <div class="car-list-item">
+                  <p:graphicImage name="img/sample.jpg" />
+                  <div class="car-list-detail">
+                    <div class="car-name">#{car.brand} #{car.model}</div>
+                    <div class="car-description">#{car.description}</div>
+                    <p:rating value="0" />
+                  </div>
+                  <div class="car-list-action">
+                    <h:outputText value="#{car.price}" styleClass="car-price">
+                      <f:convertNumber currencySymbol="R$" type="currency" />
+                    </h:outputText>
+                    <p:commandButton type="button" value="Detail" icon="pi pi-search" />
+                  </div>
+                </div>
+              </p:dataViewListItem>
+            </p:dataView>
+          </div>
+        </p:card>
+      </h:form>
+    </ui:define>
+  </ui:composition>
 </html>
