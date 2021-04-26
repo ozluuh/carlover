@@ -4,6 +4,7 @@
     <description>Forge Persistence Unit</description>
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>br.com.carlover.model.Car</class>
+    <class>br.com.carlover.model.User</class>
     
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>

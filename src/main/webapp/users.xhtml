@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <ui:composition template="/_template.xhtml">
+        <ui:define name="title">Users</ui:define>
+        <ui:define name="content">
+            <p:growl id="statusMessage" showDetail="false" />
+
+            <p:accordionPanel widgetVar="basic" styleClass="form-card">
+                <p:tab title="New User">
+                    <h:form id="users_create">
+                        <p:card>
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <p:outputLabel for="@next" value="Name" />
+                                <p:inputText
+                                    id="name"
+                                    required="true"
+                                    requiredMessage="Name field is required"
+                                    validatorMessage="Maximum of '170' characters exceeded"
+                                    value="#{userBean.user.name}"
+                                >
+                                    <f:validateLength maximum="170" />
+                                    <f:ajax event="blur" render="@next" />
+                                </p:inputText>
+                                <p:message for="@previous" />
+
+                                <p:outputLabel for="@next" value="Birthday" />
+                                <p:datePicker
+                                    id="birthday"
+                                    value="#{userBean.user.birthday}"
+                                    mindate="#{userBean.minDate}"
+                                    monthNavigator="true"
+                                    yearNavigator="true"
+                                    required="true"
+                                    requiredMessage="Birthday is required"
+                                />
+                                <p:message for="@previous" />
+
+                                <p:outputLabel for="@next" value="Mail" />
+                                <p:inputText
+                                    id="mail"
+                                    validatorMessage="Mail not recognized"
+                                    value="#{userBean.user.mail}"
+                                    autocomplete="false"
+                                >
+                                    <f:validateRegex
+                                        pattern="^[a-z0-9_.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$"
+                                    />
+                                    <f:ajax event="keyup" render="@next" />
+                                </p:inputText>
+                                <p:message for="@previous" />
+
+                                <p:outputLabel for="@next" value="Password" />
+                                <p:password
+                                    id="toggle"
+                                    value="#{userBean.user.password}"
+                                    toggleMask="true"
+                                    redisplay="true"
+                                    required="true"
+                                    feedback="true"
+                                    requiredMessage="Password field must be filled"
+                                    validatorMessage="Password must be a minimum of '6' characters"
+                                >
+                                    <f:validateLength minimum="6" />
+                                    <f:ajax event="blur" render="@next" />
+                                </p:password>
+                                <p:message for="@previous" />
+                            </h:panelGrid>
+
+                            <f:facet name="footer">
+                                <p:commandButton
+                                    value="Save"
+                                    icon="pi pi-save"
+                                    update="statusMessage"
+                                    action="#{userBean.save}"
+                                />
+                                <p:commandButton
+                                    value="Cancel"
+                                    icon="pi pi-times"
+                                    styleClass="ui-button-secondary"
+                                />
+                            </f:facet>
+                        </p:card>
+                    </h:form>
+                </p:tab>
+
+                <p:tab title="List all">
+                    <h:form id="users_list">
+                        <p:dataTable
+                            var="user"
+                            value="#{userBean.users}"
+                            showGridlines="true"
+                        >
+                            <p:column headerText="Birthday">
+                                <h:outputText value="#{user.birthday}" />
+                            </p:column>
+                            <p:column headerText="Name">
+                                <h:outputText value="#{user.name}" />
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="#{user.mail}" />
+                            </p:column>
+                            <p:column headerText="Email">
+                                <p:password
+                                    value="#{user.password}"
+                                    toggleMask="true"
+                                    redisplay="true"
+                                    readonly="true"
+                                />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:tab>
+            </p:accordionPanel>
+        </ui:define>
+    </ui:composition>
+</html>
