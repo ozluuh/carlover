@@ -30,4 +30,14 @@ public class CarDao {
         return manager.find(Car.class, id);
     }
 
+    public void update(Car car) {
+        EntityManager manager = ConnectionFactory.getConnection();
+
+        manager.getTransaction().begin();
+        manager.merge(car);
+        manager.flush();
+        manager.getTransaction().commit();
+        manager.close();
+    }
+
 }
