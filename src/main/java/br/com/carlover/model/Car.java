@@ -35,6 +35,14 @@ public class Car {
         return "Car [model=" + model + ", brand=" + brand + ", description=" + description + ", price=" + price + "]";
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getModel() {
         return model;
     }
