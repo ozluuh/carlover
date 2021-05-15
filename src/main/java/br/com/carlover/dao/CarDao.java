@@ -25,4 +25,9 @@ public class CarDao {
         return manager.createQuery(jpql, Car.class).getResultList();
     }
 
+    public Car findById(Long id) {
+        EntityManager manager = ConnectionFactory.getConnection();
+        return manager.find(Car.class, id);
+    }
+
 }
