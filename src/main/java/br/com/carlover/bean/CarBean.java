@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import br.com.carlover.connection.ConnectionFactory;
 import br.com.carlover.dao.CarDao;
 import br.com.carlover.model.Car;
 
@@ -17,14 +18,15 @@ public class CarBean {
 
     private Car car = new Car();
 
+    private CarDao dao = new CarDao(ConnectionFactory.getConnection());
+
     public void save() {
-        new CarDao().save(this.car);
-        System.out.println("salvando..." + this.car);
+        dao.save(this.car);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successfully registered"));
     }
 
     public List<Car> getCars(){
-        return new CarDao().getAll();
+        return dao.getAll();
     }
 
     public Car getCar() {
