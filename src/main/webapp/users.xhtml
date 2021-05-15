@@ -39,6 +39,7 @@
                                     yearNavigator="true"
                                     required="true"
                                     requiredMessage="Birthday is required"
+                                    showOn="button"
                                 />
                                 <p:message for="@previous" />
 
@@ -98,7 +99,9 @@
                             showGridlines="true"
                         >
                             <p:column headerText="Birthday">
-                                <h:outputText value="#{user.birthday}" />
+                                <h:outputText value="#{user.birthday}">
+                                    <f:convertDateTime locale="pt_BR" dateStyle="short" />
+                                </h:outputText>
                             </p:column>
                             <p:column headerText="Name">
                                 <h:outputText value="#{user.name}" />
