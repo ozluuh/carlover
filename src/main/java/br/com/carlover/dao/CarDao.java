@@ -39,4 +39,8 @@ public class CarDao {
         manager.close();
     }
 
+    public void delete(Car car) {
+        manager.remove(car);
+    }
+
 }
