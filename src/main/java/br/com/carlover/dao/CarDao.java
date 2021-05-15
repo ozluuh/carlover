@@ -40,7 +40,10 @@ public class CarDao {
     }
 
     public void delete(Car car) {
+        manager.getTransaction().begin();
         manager.remove(car);
+        manager.flush();
+        manager.getTransaction().commit();
     }
 
 }
