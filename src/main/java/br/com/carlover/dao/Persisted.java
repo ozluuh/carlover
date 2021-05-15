@@ -38,9 +38,9 @@ public interface Persisted<E, K> {
     /**
      * Delete managed entity
      *
-     * @param entity entity instance
+     * @param key key to remove
      */
-    void delete(E entity);
+    void delete(K key);
 
     /**
      * Commit transaction
