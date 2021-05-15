@@ -3,6 +3,7 @@ package br.com.carlover.rest;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -66,5 +67,16 @@ public class CarEndpoint {
         car.setId(id);
         dao.update(car);
         return Response.status(Response.Status.OK).entity(car).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response delete(@PathParam("id") Long id) {
+        Car car = dao.findById(id);
+        if (car == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        dao.delete(car);
+        return Response.status(Response.Status.ACCEPTED).build();
     }
 }
