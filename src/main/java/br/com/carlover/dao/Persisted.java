@@ -2,6 +2,8 @@ package br.com.carlover.dao;
 
 import java.util.List;
 
+import br.com.carlover.exception.CommitTransactionException;
+
 public interface Persisted<E, K> {
 
     /**
@@ -39,4 +41,9 @@ public interface Persisted<E, K> {
      * @param entity entity instance
      */
     void delete(E entity);
+
+    /**
+     * Commit transaction
+     */
+    void commit() throws CommitTransactionException;
 }
