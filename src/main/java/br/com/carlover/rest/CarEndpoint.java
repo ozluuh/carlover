@@ -55,6 +55,13 @@ public class CarEndpoint {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Long id, Car car) {
+        if (car == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        Car instance = dao.findById(id);
+        if (instance == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         car.setId(id);
         dao.update(car);
         return Response.status(Response.Status.OK).entity(car).build();
