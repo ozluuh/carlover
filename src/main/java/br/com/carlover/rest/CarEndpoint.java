@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import br.com.carlover.connection.ConnectionFactory;
 import br.com.carlover.dao.CarDao;
 import br.com.carlover.model.Car;
 
@@ -19,7 +20,7 @@ import br.com.carlover.model.Car;
 @Produces(MediaType.APPLICATION_JSON)
 public class CarEndpoint {
 
-    CarDao dao = new CarDao();
+    CarDao dao = new CarDao(ConnectionFactory.getConnection());
 
     @GET
     public List<Car> index() {
