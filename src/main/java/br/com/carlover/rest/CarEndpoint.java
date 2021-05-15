@@ -46,6 +46,9 @@ public class CarEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response show(@PathParam("id") Long id) {
         Car car = dao.findById(id);
+        if (car == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity(car).build();
+        }
         return Response.status(Response.Status.OK).entity(car).build();
     }
 }
