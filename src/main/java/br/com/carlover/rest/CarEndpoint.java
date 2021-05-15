@@ -14,7 +14,8 @@ import javax.ws.rs.core.Response;
 import br.com.carlover.dao.CarDao;
 import br.com.carlover.model.Car;
 
-@Path("/cars")
+@Path("cars")
+@Produces(MediaType.APPLICATION_JSON)
 public class CarEndpoint {
 
     CarDao dao = new CarDao();
@@ -27,7 +28,6 @@ public class CarEndpoint {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response create(Car car) {
         if (car == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -43,7 +43,6 @@ public class CarEndpoint {
 
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response show(@PathParam("id") Long id) {
         Car car = dao.findById(id);
         if (car == null) {
