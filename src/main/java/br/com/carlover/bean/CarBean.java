@@ -9,24 +9,33 @@ import javax.inject.Named;
 
 import br.com.carlover.connection.ConnectionFactory;
 import br.com.carlover.dao.CarDao;
+import br.com.carlover.dao.impl.CarDaoImpl;
+import br.com.carlover.exception.CommitTransactionException;
 import br.com.carlover.model.Car;
 
 @Named // CDI -> não usar ManagedBean
-//Escopo Default do CDI -> ViewScope
+// Escopo Default do CDI -> ViewScope
 @RequestScoped
 public class CarBean {
 
     private Car car = new Car();
 
-    private CarDao dao = new CarDao(ConnectionFactory.getConnection());
+    private CarDao dao = new CarDaoImpl(ConnectionFactory.getConnection());
 
     public void save() {
         dao.save(this.car);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successfully registered"));
+        try {
+            dao.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successfully registered"));
+        } catch (CommitTransactionException e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+        }
     }
 
-    public List<Car> getCars(){
-        return dao.getAll();
+    public List<Car> getCars() {
+        return dao.findAll();
     }
 
     public Car getCar() {
