@@ -2,6 +2,7 @@ package br.com.carlover.rest;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -74,11 +75,14 @@ public class CarEndpoint {
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") Long id) {
-        Car car = dao.findById(id);
-        if (car == null) {
+        try {
+            dao.delete(id);
+            dao.commit();
+        } catch (EntityNotFoundException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
+        } catch (CommitTransactionException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
-        dao.delete(id);
         return Response.status(Response.Status.ACCEPTED).build();
     }
 }
