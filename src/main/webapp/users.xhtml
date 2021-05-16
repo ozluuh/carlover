@@ -78,7 +78,7 @@
                                 <p:commandButton
                                     value="Save"
                                     icon="pi pi-save"
-                                    update="statusMessage"
+                                    update="@([id$=userTable])"
                                     action="#{userBean.save}"
                                 />
                                 <p:commandButton
