@@ -17,6 +17,8 @@ public class UserBean {
 
     private User user = new User();
 
+    private UserDao dao = new UserDaoImpl(ConnectionFactory.getConnection());
+
     private final LocalDate minDate = LocalDate.of(1900, 1, 1);
 
     public void save() {
@@ -26,7 +28,7 @@ public class UserBean {
     }
 
     public List<User> getUsers() {
-        return new UserDao().getAll();
+        return dao.findAll();
     }
 
     public User getUser() {
