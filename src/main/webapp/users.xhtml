@@ -99,9 +99,7 @@
                             showGridlines="true"
                         >
                             <p:column headerText="Birthday">
-                                <h:outputText value="#{user.birthday}">
-                                    <f:convertDateTime locale="pt_BR" dateStyle="short" />
-                                </h:outputText>
+                                <h:outputText value="#{user.birthday}" />
                             </p:column>
                             <p:column headerText="Name">
                                 <h:outputText value="#{user.name}" />
