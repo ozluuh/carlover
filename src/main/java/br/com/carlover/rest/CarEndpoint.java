@@ -15,17 +15,18 @@ import javax.ws.rs.core.Response;
 
 import br.com.carlover.connection.ConnectionFactory;
 import br.com.carlover.dao.CarDao;
+import br.com.carlover.dao.impl.CarDaoImpl;
 import br.com.carlover.model.Car;
 
 @Path("cars")
 @Produces(MediaType.APPLICATION_JSON)
 public class CarEndpoint {
 
-    CarDao dao = new CarDao(ConnectionFactory.getConnection());
+    CarDao dao = new CarDaoImpl(ConnectionFactory.getConnection());
 
     @GET
     public List<Car> index() {
-        return dao.getAll();
+        return dao.findAll();
     }
 
     @POST
@@ -76,7 +77,7 @@ public class CarEndpoint {
         if (car == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        dao.delete(car);
+        dao.delete(id);
         return Response.status(Response.Status.ACCEPTED).build();
     }
 }
