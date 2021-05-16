@@ -66,4 +66,12 @@ public class User {
     public LocalDate getBirthday() {
         return birthday;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
