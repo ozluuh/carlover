@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityTransaction;
 
 import br.com.carlover.dao.Persisted;
@@ -41,8 +42,11 @@ public abstract class PersistedImpl<E, K> implements Persisted<E, K> {
     }
 
     @Override
-    public void delete(K key) {
+    public void delete(K key) throws EntityNotFoundException {
         E entity = findById(key);
+        if(entity == null){
+            throw new EntityNotFoundException();
+        }
         manager.remove(entity);
     }
 

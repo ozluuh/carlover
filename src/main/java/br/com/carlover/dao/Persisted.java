@@ -2,6 +2,8 @@ package br.com.carlover.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import br.com.carlover.exception.CommitTransactionException;
 
 public interface Persisted<E, K> {
@@ -40,7 +42,7 @@ public interface Persisted<E, K> {
      *
      * @param key key to remove
      */
-    void delete(K key);
+    void delete(K key) throws EntityNotFoundException;
 
     /**
      * Commit transaction
