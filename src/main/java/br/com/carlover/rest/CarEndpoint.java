@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import br.com.carlover.connection.ConnectionFactory;
 import br.com.carlover.dao.CarDao;
 import br.com.carlover.dao.impl.CarDaoImpl;
+import br.com.carlover.exception.CommitTransactionException;
 import br.com.carlover.model.Car;
 
 @Path("cars")
@@ -35,12 +36,12 @@ public class CarEndpoint {
         if (car == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        dao.save(car);
         try {
-            dao.save(car);
-        } catch (Exception e) {
+            dao.commit();
+        } catch (CommitTransactionException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
-
         return Response.status(Response.Status.CREATED).entity(car).build();
     }
 
