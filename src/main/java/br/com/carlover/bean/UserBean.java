@@ -8,7 +8,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import br.com.carlover.connection.ConnectionFactory;
 import br.com.carlover.dao.UserDao;
+import br.com.carlover.dao.impl.UserDaoImpl;
+import br.com.carlover.exception.CommitTransactionException;
 import br.com.carlover.model.User;
 
 @Named
@@ -22,9 +25,15 @@ public class UserBean {
     private final LocalDate minDate = LocalDate.of(1900, 1, 1);
 
     public void save() {
-        new UserDao().save(this.user);
-        System.out.println("Saving: " + this.user);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successfully registered"));
+        dao.save(this.user);
+        try {
+            dao.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successfully registered"));
+        } catch (CommitTransactionException e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+        }
     }
 
     public List<User> getUsers() {
