@@ -31,16 +31,19 @@
                                 <p:message for="@previous" />
 
                                 <p:outputLabel for="@next" value="Birthday" />
-                                <p:datePicker
+                                <p:calendar
                                     id="birthday"
                                     value="#{userBean.user.birthday}"
                                     mindate="#{userBean.minDate}"
-                                    monthNavigator="true"
-                                    yearNavigator="true"
+                                    navigator="true"
                                     required="true"
                                     requiredMessage="Birthday is required"
+                                    pattern="dd/MM/yyyy"
+                                    mask="true"
                                     showOn="button"
-                                />
+                                >
+                                    <f:ajax event="blur" render="@next" />
+                                </p:calendar>
                                 <p:message for="@previous" />
 
                                 <p:outputLabel for="@next" value="Mail" />
