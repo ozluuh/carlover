@@ -51,7 +51,7 @@
                                     autocomplete="false"
                                 >
                                     <f:validateRegex
-                                        pattern="^[a-z0-9_.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$"
+                                        pattern="^[A-z0-9_.]+@[A-z0-9]+\.[A-z]{2,}(\.[A-z]+)?$"
                                     />
                                     <f:ajax event="keyup" render="@next" />
                                 </p:inputText>
