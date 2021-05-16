@@ -10,7 +10,7 @@
     <ui:composition template="/_template.xhtml">
         <ui:define name="title">Users</ui:define>
         <ui:define name="content">
-            <p:growl id="statusMessage" showDetail="false" />
+            <p:growl id="messages" showDetail="true"><p:autoUpdate /></p:growl>
 
             <p:accordionPanel widgetVar="basic" styleClass="form-card">
                 <p:tab title="New User">
@@ -80,7 +80,9 @@
                                     icon="pi pi-save"
                                     update="@([id$=userTable])"
                                     action="#{userBean.save}"
-                                />
+                                >
+                                    <f:ajax execute="@form" render="messages" />
+                                </p:commandButton>
                                 <p:commandButton
                                     value="Cancel"
                                     icon="pi pi-times"
