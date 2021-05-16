@@ -2,6 +2,8 @@ package br.com.carlover.rest;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -66,4 +68,17 @@ public class UserEndpoint {
         return Response.status(Response.Status.ACCEPTED).build();
     }
 
+    @DELETE
+    @Path("{id}")
+    public Response destroy(@PathParam("id") Long id) {
+        try {
+            dao.delete(id);
+            dao.commit();
+        } catch (EntityNotFoundException e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        } catch (CommitTransactionException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+        return Response.status(Response.Status.OK).build();
+    }
 }
