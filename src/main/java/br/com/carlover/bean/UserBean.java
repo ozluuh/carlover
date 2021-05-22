@@ -38,12 +38,12 @@ public class UserBean {
 
     public String login() {
         boolean exist = dao.exists(user);
+        FacesContext context = FacesContext.getCurrentInstance();
 
         if (exist) {
+            context.getExternalContext().getSessionMap().put("user", user);
             return "index?faces-redirect=true";
         }
-
-        FacesContext context = FacesContext.getCurrentInstance();
 
         context.getExternalContext().getFlash().setKeepMessages(true);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Login inválido"));
