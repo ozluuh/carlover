@@ -51,6 +51,13 @@ public class UserBean {
         return "login?faces-redirect=true";
     }
 
+    public String logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getSessionMap().remove("user");
+
+        return "login?faces-redirect=true";
+    }
+
     public List<User> getUsers() {
         return dao.findAll();
     }
