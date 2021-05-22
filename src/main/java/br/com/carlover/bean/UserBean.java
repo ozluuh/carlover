@@ -36,6 +36,21 @@ public class UserBean {
         }
     }
 
+    public String login() {
+        boolean exist = dao.exists(user);
+
+        if (exist) {
+            return "index?faces-redirect=true";
+        }
+
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        context.getExternalContext().getFlash().setKeepMessages(true);
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Login inválido"));
+
+        return "login?faces-redirect=true";
+    }
+
     public List<User> getUsers() {
         return dao.findAll();
     }
