@@ -15,11 +15,11 @@ public class UserDaoImpl extends PersistedImpl<User, Long> implements UserDao {
 
     @Override
     public boolean exists(User user) {
+        TypedQuery<User> q = manager.createQuery("select u from User u where u.mail = :mail and u.password = :pass",
+                User.class);
+        q.setParameter("mail", user.getMail());
+        q.setParameter("pass", user.getPassword());
         try {
-            TypedQuery<User> q = manager
-                    .createQuery("select u from User u where u.mail = :mail and u.password = :pass", User.class);
-            q.setParameter("mail", user.getMail());
-            q.setParameter("pass", user.getPassword());
             q.getSingleResult();
         } catch (NoResultException e) {
             return false;
