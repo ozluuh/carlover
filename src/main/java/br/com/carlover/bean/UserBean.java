@@ -41,6 +41,7 @@ public class UserBean {
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (exist) {
+            user = dao.findByMailAndPassword(user);
             context.getExternalContext().getSessionMap().put("user", user);
             return "index?faces-redirect=true";
         }
