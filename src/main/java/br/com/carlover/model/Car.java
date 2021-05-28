@@ -35,7 +35,8 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car [model=" + model + ", brand=" + brand + ", description=" + description + ", price=" + price + "]";
+        return "Car [brand=" + brand + ", description=" + description + ", id=" + id + ", model=" + model + ", price="
+                + price + ", user=" + user + "]";
     }
 
     public Long getId() {
