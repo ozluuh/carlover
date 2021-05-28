@@ -16,7 +16,7 @@ public abstract class PersistedImpl<E, K> implements Persisted<E, K> {
     private Class<E> clazz;
 
     @SuppressWarnings("unchecked")
-    public PersistedImpl(EntityManager manager) {
+    protected PersistedImpl(EntityManager manager) {
         this.manager = manager;
         clazz = (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
@@ -63,7 +63,7 @@ public abstract class PersistedImpl<E, K> implements Persisted<E, K> {
             if (trx != null) {
                 trx.rollback();
             }
-            throw new CommitTransactionException();
+            throw new CommitTransactionException(e.getMessage());
         }
 
     }
