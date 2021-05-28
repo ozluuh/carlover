@@ -43,6 +43,13 @@ public class CarBean {
         return dao.findAll();
     }
 
+    public List<Car> getCarsLogged(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        User user = (User) context.getExternalContext().getSessionMap().get("user");
+
+        return dao.findByUserId(user);
+    }
+
     public Car getCar() {
         return car;
     }
