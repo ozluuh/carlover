@@ -1,12 +1,14 @@
 package br.com.carlover.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +31,9 @@ public class User {
 
     @Column(name = "ds_password", nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Car> cars;
 
     @Override
     public String toString() {
@@ -74,4 +79,13 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
 }
