@@ -10,7 +10,9 @@
     <ui:composition template="/_template.xhtml">
         <ui:define name="title">Cars</ui:define>
         <ui:define name="content">
-            <p:growl id="statusMessage" showDetail="false" />
+            <p:growl id="statusMessage" showDetail="false">
+                <p:autoUpdate />
+            </p:growl>
 
             <h:form>
                 <p:card styleClass="form-card">
