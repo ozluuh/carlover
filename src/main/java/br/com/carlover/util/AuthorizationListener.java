@@ -18,6 +18,9 @@ public class AuthorizationListener implements PhaseListener {
         if (page.equals("/login.xhtml")) {
             return;
         }
+        if (page.equals("/users.xhtml")) {
+            return;
+        }
 
         User user = (User) context.getExternalContext().getSessionMap().get("user");
         if (user == null) {
