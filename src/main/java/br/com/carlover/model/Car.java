@@ -30,6 +30,9 @@ public class Car {
     @Column(name = "vl_car", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "id_user")
+    private User user;
+
     @Override
     public String toString() {
         return "Car [model=" + model + ", brand=" + brand + ", description=" + description + ", price=" + price + "]";
@@ -75,4 +78,11 @@ public class Car {
         this.price = price;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
