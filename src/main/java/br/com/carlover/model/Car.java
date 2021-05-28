@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,7 +32,8 @@ public class Car {
     @Column(name = "vl_car", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "id_user")
+    @ManyToOne
+    @JoinColumn(name = "id_user")
     private User user;
 
     @Override
