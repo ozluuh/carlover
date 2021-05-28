@@ -26,4 +26,13 @@ public class UserDaoImpl extends PersistedImpl<User, Long> implements UserDao {
         }
         return true;
     }
+
+    @Override
+    public User findByMailAndPassword(User user) {
+        return manager
+                .createQuery("from User u where u.mail = :mail and u.password = :pass", User.class)
+                .setParameter("mail", user.getMail())
+                .setParameter("pass", user.getPassword())
+                .getSingleResult();
+    }
 }
