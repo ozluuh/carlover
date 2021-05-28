@@ -25,6 +25,7 @@
                             validatorMessage="Mail not recognized"
                             value="#{userBean.user.mail}"
                             autocomplete="false"
+                            required="true"
                         >
                             <f:validateRegex
                                 pattern="^[A-z0-9_.]+@[A-z0-9]+\.[A-z]{2,}(\.[A-z]+)?$"
