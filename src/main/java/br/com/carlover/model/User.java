@@ -37,7 +37,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [name=" + name + ", birthday=" + birthday + ", mail=" + mail + ", password=" + password + "]";
+        return "User [birthday=" + birthday + ", cars=" + cars + ", id=" + id + ", mail=" + mail + ", name=" + name
+                + ", password=" + password + "]";
     }
 
     public String getName() {
