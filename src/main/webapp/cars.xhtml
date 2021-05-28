@@ -10,84 +10,121 @@
     <ui:composition template="/_template.xhtml">
         <ui:define name="title">Cars</ui:define>
         <ui:define name="content">
-            <p:growl id="statusMessage" showDetail="false">
+            <p:growl id="messages" showDetail="false">
                 <p:autoUpdate />
             </p:growl>
 
-            <h:form>
-                <p:card styleClass="form-card">
-                    <f:facet name="title">New Car</f:facet>
-                    <h:panelGrid columns="3" cellpadding="5">
-                        <p:outputLabel for="@next" value="Model" />
-                        <p:inputText
-                            id="model"
-                            required="true"
-                            requiredMessage="Model field is required"
-                            validatorMessage="Maximum of '125' characters"
-                            value="#{carBean.car.model}"
-                        >
-                            <f:validateLength maximum="125" />
-                            <f:ajax event="blur" render="@next" />
-                        </p:inputText>
-                        <p:message for="@previous" />
+            <p:accordionPanel widgetVar="basic" styleClass="form-card">
+                <p:tab title="New Car">
+                    <h:form>
+                        <p:card>
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <p:outputLabel for="@next" value="Model" />
+                                <p:inputText
+                                    id="model"
+                                    required="true"
+                                    requiredMessage="Model field is required"
+                                    validatorMessage="Maximum of '125' characters"
+                                    value="#{carBean.car.model}"
+                                >
+                                    <f:validateLength maximum="125" />
+                                    <f:ajax event="blur" render="@next" />
+                                </p:inputText>
+                                <p:message for="@previous" />
 
-                        <p:outputLabel for="@next" value="Brand" />
-                        <p:inputText
-                            id="brand"
-                            required="true"
-                            requiredMessage="Brand field is required"
-                            validatorMessage="Maximum of '30' characters"
-                            value="#{carBean.car.brand}"
-                        >
-                            <f:validateLength maximum="30" />
-                            <f:ajax event="blur" render="@next" />
-                        </p:inputText>
-                        <p:message for="@previous" />
+                                <p:outputLabel for="@next" value="Brand" />
+                                <p:inputText
+                                    id="brand"
+                                    required="true"
+                                    requiredMessage="Brand field is required"
+                                    validatorMessage="Maximum of '30' characters"
+                                    value="#{carBean.car.brand}"
+                                >
+                                    <f:validateLength maximum="30" />
+                                    <f:ajax event="blur" render="@next" />
+                                </p:inputText>
+                                <p:message for="@previous" />
 
-                        <p:outputLabel for="@next" value="Description" />
-                        <p:inputTextarea
-                            id="description"
-                            rows="5"
-                            validatorMessage="Maximum of '255' characters"
-                            value="#{carBean.car.description}"
-                        >
-                            <f:validateLength maximum="255" />
-                            <f:ajax event="blur" render="@next" />
-                        </p:inputTextarea>
-                        <p:message for="@previous" />
+                                <p:outputLabel
+                                    for="@next"
+                                    value="Description"
+                                />
+                                <p:inputTextarea
+                                    id="description"
+                                    rows="5"
+                                    validatorMessage="Maximum of '255' characters"
+                                    value="#{carBean.car.description}"
+                                >
+                                    <f:validateLength maximum="255" />
+                                    <f:ajax event="blur" render="@next" />
+                                </p:inputTextarea>
+                                <p:message for="@previous" />
 
-                        <p:outputLabel for="@next" value="Price" />
-                        <p:inputNumber
-                            id="price"
-                            required="true"
-                            decimalSeparator=","
-                            thousandSeparator="."
-                            emptyValue="empty"
-                            requiredMessage="Price field is required"
-                            validatorMessage="Minimum price is '0'"
-                            value="#{carBean.car.price}"
-                        >
-                            <f:validateDoubleRange minimum="0" />
-                            <f:ajax event="keydown" render="@next" />
-                        </p:inputNumber>
-                        <p:message for="@previous" />
-                    </h:panelGrid>
+                                <p:outputLabel for="@next" value="Price" />
+                                <p:inputNumber
+                                    id="price"
+                                    required="true"
+                                    decimalSeparator=","
+                                    thousandSeparator="."
+                                    emptyValue="empty"
+                                    requiredMessage="Price field is required"
+                                    validatorMessage="Minimum price is '0'"
+                                    value="#{carBean.car.price}"
+                                >
+                                    <f:validateDoubleRange minimum="0" />
+                                    <f:ajax event="keydown" render="@next" />
+                                </p:inputNumber>
+                                <p:message for="@previous" />
+                            </h:panelGrid>
 
-                    <f:facet name="footer">
-                        <p:commandButton
-                            value="Save"
-                            icon="pi pi-save"
-                            update="statusMessage"
-                            action="#{carBean.save}"
-                        />
-                        <p:commandButton
-                            value="Cancel"
-                            icon="pi pi-times"
-                            styleClass="ui-button-secondary"
-                        />
-                    </f:facet>
-                </p:card>
-            </h:form>
+                            <f:facet name="footer">
+                                <p:commandButton
+                                    value="Save"
+                                    icon="pi pi-save"
+                                    update="@([id$=carTable])"
+                                    action="#{carBean.save}"
+                                >
+                                    <f:ajax execute="@form" render="messages" />
+                                </p:commandButton>
+                                <p:commandButton
+                                    value="Cancel"
+                                    icon="pi pi-times"
+                                    styleClass="ui-button-secondary"
+                                />
+                            </f:facet>
+                        </p:card>
+                    </h:form>
+                </p:tab>
+
+                <p:tab title="Your Cars">
+                    <h:form id="cars_list">
+                        <p:dataTable
+                            var="car"
+                            value="#{carBean.cars}"
+                            showGridlines="true"
+                            id="carTable"
+                        >
+                            <p:column headerText="Model">
+                                <h:outputText value="#{car.model}" />
+                            </p:column>
+                            <p:column headerText="Brand">
+                                <h:outputText value="#{car.brand}" />
+                            </p:column>
+                            <p:column headerText="Description">
+                                <h:outputText value="#{car.description}" />
+                            </p:column>
+                            <p:column headerText="Price">
+                                <h:outputText value="#{car.price}">
+                                    <f:convertNumber
+                                        currencySymbol="R$"
+                                        type="currency"
+                                    />
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:tab>
+            </p:accordionPanel>
         </ui:define>
     </ui:composition>
 </html>
