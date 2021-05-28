@@ -12,6 +12,7 @@ import br.com.carlover.dao.CarDao;
 import br.com.carlover.dao.impl.CarDaoImpl;
 import br.com.carlover.exception.CommitTransactionException;
 import br.com.carlover.model.Car;
+import br.com.carlover.model.User;
 
 @Named // CDI -> não usar ManagedBean
 // Escopo Default do CDI -> ViewScope
@@ -23,6 +24,10 @@ public class CarBean {
     private CarDao dao = new CarDaoImpl(ConnectionFactory.getConnection());
 
     public void save() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        User user = (User) context.getExternalContext().getSessionMap().get("user");
+        this.car.setUser(user);
+
         dao.save(this.car);
         try {
             dao.commit();
